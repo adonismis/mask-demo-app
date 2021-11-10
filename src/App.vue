@@ -1,26 +1,28 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<div id="app">
+  <asideMenu />
+
+  <!-- 地圖區塊 -->
+  <div class="mask-map" id="mask-map"></div>
+</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import { mapActions } from 'vuex';
+import asideMenu from "./components/asideMenu.vue";
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    asideMenu
+  },
+  methods: {
+    ...mapActions(['fetchLocations', 'fetchPharmacies'])
+  },
+  mounted() {
+    this.fetchLocations();
+    this.fetchPharmacies();
   }
 }
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style lang="scss" src="./style.scss"></style>
