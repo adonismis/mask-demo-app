@@ -7,6 +7,8 @@ export default createStore({
     location: [],
     stores:[],
     keywords: '',
+    showModal: false,
+    infoBoxSid: null,
   },
   getters: {
     cityList(state){
@@ -20,7 +22,11 @@ export default createStore({
       return state.keywords 
         ? stores.filter((d)=> d.name.includes(state.keywords)) 
         : stores.filter((d)=> d.county === state.currCity && d.town === state.currDistrict);
-    }
+    },
+    currDistrictInfo(state, getters){
+      return getters.districtList.find((d)=> d.name === state.currDistrict) || {};
+    },
+
   },
   mutations: {
     setcurrCity(state, payload){
@@ -37,6 +43,12 @@ export default createStore({
     },
     setKeywords(state, payload){
       state.keywords = payload;
+    },
+    setshowModal(state, payload){
+      state.showModal = payload;
+    },
+    setInfoBoxSid(state, payload){
+      state.infoBoxSid = payload;
     }
   },
   actions: {
